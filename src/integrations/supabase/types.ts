@@ -9,6 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      bias_updates: {
+        Row: {
+          bias: string
+          id: number
+          timeframe: string
+          tradingview_url: string
+          updated_at: string
+        }
+        Insert: {
+          bias: string
+          id?: number
+          timeframe: string
+          tradingview_url: string
+          updated_at?: string
+        }
+        Update: {
+          bias?: string
+          id?: number
+          timeframe?: string
+          tradingview_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       links: {
         Row: {
           created_at: string

@@ -3,6 +3,7 @@ import { LinkCard } from "./link-card";
 import { useLinks } from "@/hooks/use-links";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
+import { DailyBias } from "./daily-bias";
 
 export function MainContent() {
   const { links, loading, error } = useLinks();
@@ -41,6 +42,9 @@ export function MainContent() {
           I am not a financial advisor and will never be a financial advisor. I do not offer any financial advice at all, and anything I say should never be regarded as financial advice.
         </p>
       </div>
+
+      {/* Daily Bias Section */}
+      <DailyBias />
 
       {/* Links section */}
       <div className="w-full space-y-4 md:space-y-5 mt-6">
