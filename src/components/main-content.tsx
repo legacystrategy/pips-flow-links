@@ -1,39 +1,11 @@
 
 import { LinkCard } from "./link-card";
-
-// Dummy data for now - would normally come from Supabase
-const links = [
-  {
-    id: 1,
-    title: "Legacy Strategy Guide Book",
-    url: "https://example.com/guide",
-    description: "Complete forex trading strategy guide for all experience levels",
-    order: 1
-  },
-  {
-    id: 2,
-    title: "Best Broker HFM",
-    url: "https://example.com/hfm",
-    description: "Get access to the best broker for forex trading",
-    order: 2
-  },
-  {
-    id: 3,
-    title: "Regal Unity Capital (Mentorship)",
-    url: "https://example.com/mentorship",
-    description: "Join our exclusive mentorship program and accelerate your growth",
-    order: 3
-  },
-  {
-    id: 4,
-    title: "YouTube Channel",
-    url: "https://youtube.com/example",
-    description: "Check out our latest forex strategy videos and market analyses",
-    order: 4
-  }
-];
+import { useLinks } from "@/hooks/use-links";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function MainContent() {
+  const { links, loading, error } = useLinks();
+
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-12 md:py-20 flex flex-col items-center">
       {/* Header section */}
@@ -53,7 +25,23 @@ export function MainContent() {
 
       {/* Links section */}
       <div className="w-full space-y-4 md:space-y-5 mt-6">
-        {links.sort((a, b) => a.order - b.order).map((link) => (
+        {loading && (
+          <>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="w-full">
+                <Skeleton className="h-20 w-full rounded-md" />
+              </div>
+            ))}
+          </>
+        )}
+        
+        {error && (
+          <div className="p-4 text-center text-destructive">
+            Failed to load links. Please try again later.
+          </div>
+        )}
+
+        {!loading && !error && links.map((link) => (
           <LinkCard
             key={link.id}
             title={link.title}
