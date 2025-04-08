@@ -19,6 +19,7 @@ export function useBias() {
     async function fetchBias() {
       try {
         setLoading(true);
+        // Using a more generic approach to avoid type issues
         const { data, error } = await supabase
           .from("bias_updates")
           .select("*")
@@ -27,7 +28,7 @@ export function useBias() {
           .single();
 
         if (error) throw error;
-        setBiasData(data);
+        setBiasData(data as BiasUpdate);
       } catch (err) {
         console.error("Error fetching bias data:", err);
         setError(err instanceof Error ? err : new Error("Failed to fetch bias data"));
