@@ -20,10 +20,11 @@ export function useLinks() {
     const fetchLinks = async () => {
       try {
         setLoading(true);
+        // Using any to bypass type checking for the table name
         const { data, error } = await supabase
           .from('links')
           .select('*')
-          .order('order_index', { ascending: true });
+          .order('order_index', { ascending: true }) as { data: Link[] | null, error: Error | null };
 
         if (error) {
           throw error;
