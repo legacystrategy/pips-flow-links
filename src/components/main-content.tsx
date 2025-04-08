@@ -2,15 +2,34 @@
 import { LinkCard } from "./link-card";
 import { useLinks } from "@/hooks/use-links";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useState } from "react";
 
 export function MainContent() {
   const { links, loading, error } = useLinks();
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    // Add animation class after component mounts for smooth transition
+    const timer = setTimeout(() => setAnimate(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-12 md:py-20 flex flex-col items-center">
       {/* Header section */}
       <div className="text-center mb-10 space-y-4 max-w-lg">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60 bg-clip-text">
+        <h1 
+          className={`text-4xl md:text-5xl font-bold tracking-tight transition-all duration-700 ${
+            animate ? 'animate-flow' : ''
+          }`}
+          style={{
+            backgroundImage: 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+            backgroundSize: '200% 200%'
+          }}
+        >
           Only Pips
         </h1>
         
